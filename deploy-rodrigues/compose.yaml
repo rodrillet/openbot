@@ -1,0 +1,23 @@
+name: openbot-rodrigues
+services:
+  openbot:
+    image: ghcr.io/nightly-labs/openbot@sha256:8f4a2c1fe3c9a6db318d8cdccc9879193fa344117535b60c9677ba173e9634d9
+    container_name: openbot-rodrigues
+    restart: unless-stopped
+    security_opt:
+      - seccomp=./seccomp.json
+      - no-new-privileges:true
+    shm_size: 1g
+    mem_limit: 2g
+    cpus: 1.5
+    stop_grace_period: 60s
+    volumes:
+      - openbot-data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+volumes:
+  openbot-data:
+    name: openbot_rodrigues_data
